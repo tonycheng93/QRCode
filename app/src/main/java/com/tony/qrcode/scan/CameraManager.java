@@ -335,5 +335,25 @@ public final class CameraManager {
         return context;
     }
 
+    public void openLight()   //打开闪光灯
+    {
+        if(camera!=null)
+        {
+            Camera.Parameters parameter=camera.getParameters();
+            parameter.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            camera.setParameters(parameter);
+        }
+    }
+
+    public void closeLight()  //关闭闪光灯
+    {
+        if(camera!=null)
+        {
+            Camera.Parameters parameter=camera.getParameters();
+            parameter.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+            camera.setParameters(parameter);
+        }
+    }
+
 }
 
