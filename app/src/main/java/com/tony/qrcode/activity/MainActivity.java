@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -76,6 +77,9 @@ public class MainActivity extends Activity {
         if (resultCode == RESULT_OK) {
             String result = data.getExtras().getString("result");
             mText.setText(result);
+            if (data.getParcelableExtra("bitmap") != null){
+                mImage.setImageBitmap((Bitmap)data.getParcelableExtra("bitmap"));
+            }
         }
     }
 }
