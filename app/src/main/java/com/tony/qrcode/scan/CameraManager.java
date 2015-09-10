@@ -29,6 +29,7 @@ import android.graphics.Rect;
 import android.hardware.Camera;
 import android.os.Build;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
@@ -227,20 +228,25 @@ public final class CameraManager {
             if (camera == null) {
                 return null;
             }
-            int width = screenResolution.x * 3 / 4;
-            if (width < MIN_FRAME_WIDTH) {
-                width = MIN_FRAME_WIDTH;
-            } else if (width > MAX_FRAME_WIDTH) {
-                width = MAX_FRAME_WIDTH;
-            }
-            int height = screenResolution.y * 3 / 4;
-            if (height < MIN_FRAME_HEIGHT) {
-                height = MIN_FRAME_HEIGHT;
-            } else if (height > MAX_FRAME_HEIGHT) {
-                height = MAX_FRAME_HEIGHT;
-            }
+
+            /**扫描框大小修改**/
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+            int width = (int) (metrics.widthPixels * 0.7);
+            int height = (int)width;
+//            int width = screenResolution.x * 3 / 4;
+//            if (width < MIN_FRAME_WIDTH) {
+//                width = MIN_FRAME_WIDTH;
+//            } else if (width > MAX_FRAME_WIDTH) {
+//                width = MAX_FRAME_WIDTH;
+//            }
+//            int height = screenResolution.y * 3 / 4;
+//            if (height < MIN_FRAME_HEIGHT) {
+//                height = MIN_FRAME_HEIGHT;
+//            } else if (height > MAX_FRAME_HEIGHT) {
+//                height = MAX_FRAME_HEIGHT;
+//            }
             int leftOffset = (screenResolution.x - width) / 2;
-            int topOffset = (screenResolution.y - height) / 2;
+            int topOffset = (screenResolution.y - height) / 3;
             framingRect = new Rect(leftOffset, topOffset, leftOffset + width, topOffset + height);
             Log.d(TAG, "Calculated framing rect: " + framingRect);
         }
