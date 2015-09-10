@@ -24,7 +24,7 @@ import com.tony.qrcode.activity.WebActivity;
 import java.io.IOException;
 import java.util.Vector;
 
-public class CaptureActivity extends Activity implements Callback {
+public class CaptureActivity extends Activity implements Callback{
 
     private CaptureActivityHandler handler;
     private ViewfinderView viewfinderView;
@@ -99,7 +99,6 @@ public class CaptureActivity extends Activity implements Callback {
 
     /**
      * Handler scan result
-     *
      * @param result
      * @param barcode
      */
@@ -110,13 +109,13 @@ public class CaptureActivity extends Activity implements Callback {
         //FIXME
         if (resultString.equals("")) {
             Toast.makeText(CaptureActivity.this, "Scan failed!", Toast.LENGTH_SHORT).show();
-        } else {
-            if (resultString.startsWith("http://")) {
+        }else {
+            if (resultString.startsWith("http://")){
                 //以http开头打开浏览器
                 Intent intent = new Intent(CaptureActivity.this, WebActivity.class);
-                intent.putExtra(WebActivity.ARG_URL, resultString);
+                intent.putExtra(WebActivity.ARG_URL,resultString);
                 startActivity(intent);
-            } else {
+            }else {
 //			System.out.println("Result:"+resultString);
                 Intent resultIntent = new Intent();
                 Bundle bundle = new Bundle();
