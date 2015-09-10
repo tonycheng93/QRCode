@@ -14,6 +14,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
@@ -37,6 +38,9 @@ public class CaptureActivity extends Activity implements Callback{
     private static final float BEEP_VOLUME = 0.10f;
     private boolean vibrate;
     private Button cancelScanButton;
+    private ImageView mFlashImageView;
+
+    private SurfaceHolder surfaceHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +49,23 @@ public class CaptureActivity extends Activity implements Callback{
         CameraManager.init(getApplication());
         viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
         cancelScanButton = (Button) this.findViewById(R.id.btn_cancel_scan);
+        mFlashImageView = (ImageView) findViewById(R.id.flashImageView);
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
+
+        mFlashImageView.setTag(true);
+        mFlashImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mFlashImageView.getTag().equals(true)){
+                    CameraManager.get().openLight();
+                    mFlashImageView.setTag(false);
+                }else {
+                    CameraManager.get().closeLight();
+                    mFlashImageView.setTag(true);
+                }
+            }
+        });
     }
 
     @Override
